@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Mechanical Wikipedia – Complete Mechanical Engineering Knowledge Platform</title>
+<meta name="description" content="The world's most comprehensive Mechanical Engineering knowledge platform. Search formulas, subjects, concepts, materials, standards, calculators and more."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="css/main.css"/>
+<link rel="stylesheet" href="css/components.css"/>
+<link rel="stylesheet" href="css/landing.css"/>
+<link rel="stylesheet" href="css/article.css"/>
+<link rel="stylesheet" href="css/calculator.css"/>
+</head>
+<body>
+<!-- SIDEBAR NAV -->
+<nav id="sidebar" class="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">⚙</span>
+    <span class="logo-text" style="font-size: 0.88rem; letter-spacing: -0.02em;">Mechanical <span class="logo-accent">Wikipedia</span></span>
+  </div>
+  <div class="sidebar-search-mini">
+    <input type="text" id="sidebarSearch" placeholder="Quick search…" autocomplete="off"/>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#/" class="nav-link" data-page="home"><span class="nav-icon">🏠</span><span>Home</span></a></li>
+    <li><a href="#/subjects" class="nav-link" data-page="subjects"><span class="nav-icon">📚</span><span>Subjects</span></a></li>
+    <li><a href="#/formulas" class="nav-link" data-page="formulas"><span class="nav-icon">∑</span><span>Formulas</span></a></li>
+    <li><a href="#/calculators" class="nav-link" data-page="calculators"><span class="nav-icon">🧮</span><span>Calculators</span></a></li>
+    <li><a href="#/materials" class="nav-link" data-page="materials"><span class="nav-icon">⚗️</span><span>Materials DB</span></a></li>
+    <li><a href="#/design-data" class="nav-link" data-page="design-data"><span class="nav-icon">📐</span><span>Design Data</span></a></li>
+    <li><a href="#/units" class="nav-link" data-page="units"><span class="nav-icon">📏</span><span>Unit Converter</span></a></li>
+    <li><a href="#/ai" class="nav-link" data-page="ai"><span class="nav-icon">🤖</span><span>AI Assistant</span></a></li>
+    <li><a href="#/dashboard" class="nav-link" data-page="dashboard"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <button id="themeToggle" class="theme-btn" title="Toggle theme">🌙</button>
+    <button id="apiStatusBtn" class="theme-btn" title="OpenAI API Settings">🔑 API</button>
+    <button id="sidebarClose" class="sidebar-close-btn" title="Close sidebar">✕</button>
+  </div>
+</nav>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button id="menuBtn" class="menu-btn">☰</button>
+  <div class="topbar-logo">
+    <a href="#/">⚙ Mechanical Wikipedia</a>
+  </div>
+  <div class="topbar-search">
+    <input type="text" id="topbarSearch" placeholder="Search…" autocomplete="off"/>
+  </div>
+  <div class="topbar-actions">
+    <button id="voiceBtn" class="icon-btn" title="Voice search">🎤</button>
+    <button id="bookmarksBtn" class="icon-btn" title="Bookmarks">🔖</button>
+    <button id="themeToggle2" class="icon-btn" title="Toggle theme">🌙</button>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main id="app" class="app-main">
+  <!-- Pages rendered here by JS -->
+</main>
+
+<!-- SEARCH OVERLAY -->
+<div id="searchOverlay" class="search-overlay hidden">
+  <div class="search-overlay-inner">
+    <div class="search-overlay-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="globalSearch" placeholder="Search formulas, subjects, concepts, materials, standards, calculators, theories, design data…" autocomplete="off"/>
+      <button id="searchClose" class="search-close">✕</button>
+    </div>
+    <div id="searchFilters" class="search-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="formula">Formulas</button>
+      <button class="filter-btn" data-filter="subject">Subjects</button>
+      <button class="filter-btn" data-filter="article">Articles</button>
+      <button class="filter-btn" data-filter="material">Materials</button>
+      <button class="filter-btn" data-filter="calculator">Calculators</button>
+    </div>
+    <div class="search-dual-container">
+      <div class="search-dual-panel search-panel-website">
+        <div class="search-panel-header">
+          <span class="search-panel-icon">🌐</span>
+          <span class="search-panel-label">Website Results</span>
+        </div>
+        <div id="searchResults" class="search-results"></div>
+      </div>
+      <div class="search-dual-panel search-panel-ai">
+        <div class="search-panel-header">
+          <span class="search-panel-icon">🤖</span>
+          <span class="search-panel-label">ChatGPT Answer</span>
+        </div>
+        <div id="aiSearchResult" class="ai-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- API KEY MODAL -->
+<div id="apiKeyModal" class="api-modal-overlay hidden">
+  <div class="api-modal">
+    <div class="api-modal-header">
+      <h3>🔑 OpenAI API Settings</h3>
+      <button id="apiModalClose" class="api-modal-close">✕</button>
+    </div>
+    <div class="api-modal-body">
+      <p class="api-modal-desc">Enter your OpenAI API key to enable <strong>live ChatGPT answers</strong> in search results. Your key is stored locally in your browser and never sent to any third-party server.</p>
+      <div class="api-modal-status" id="apiModalStatus"></div>
+      <label class="api-modal-label">API Key</label>
+      <div class="api-modal-input-row">
+        <input type="password" id="apiKeyInput" class="api-modal-input" placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+        <button id="apiKeyToggleVis" class="api-modal-vis-btn" title="Show/Hide">👁️</button>
+      </div>
+      <div class="api-modal-actions">
+        <button id="apiKeySave" class="btn btn-primary btn-sm">💾 Save Key</button>
+        <button id="apiKeyRemove" class="btn btn-secondary btn-sm">🗑️ Remove Key</button>
+      </div>
+      <p class="api-modal-hint">Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com/api-keys</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- DATA -->
+<script src="data/subjects.js"></script>
+<script src="data/formulas.js"></script>
+<script src="data/materials.js"></script>
+<script src="data/articles.js"></script>
+<script src="data/calculators.js"></script>
+<script src="data/design-data.js"></script>
+<!-- APP -->
+<script src="js/utils.js"></script>
+<script src="js/search.js"></script>
+<script src="js/calculator.js"></script>
+<script src="js/ai-assistant.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
